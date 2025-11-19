@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login – Sistema de Clínica</title>
+    <style>
+    body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #e6f0ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 350px;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.form {
+    display: none;
+}
+
+.form.active {
+    display: block;
+}
+
+h2 {
+    text-align: center;
+    color: #0056b3;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+}
+
+button {
+    width: 100%;
+    margin-top: 15px;
+    padding: 12px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+.link {
+    color: #007bff;
+    text-align: center;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- LOGIN FORM -->
+    <div id="loginForm" class="form active">
+        <h2>Iniciar Sesión</h2>
+
+        <input type="text" id="usuario" placeholder="Usuario" required>
+        <input type="password" id="password" placeholder="Contraseña" required>
+
+        <button onclick="iniciarSesion()">Ingresar</button>
+
+        <p class="link" onclick="mostrarRecuperar()">¿Olvidaste tu contraseña?</p>
+    </div>
+
+        <p class="link" onclick="window.location.href='registrate.html'">
+    ¿No tienes cuenta? Registrarse
+
+     
+
+    <!-- RECUPERAR FORM -->
+    <div id="recuperarForm" class="form">
+        <h2>Recuperar Contraseña</h2>
+
+        <input type="email" id="correoRecuperar" placeholder="Correo registrado" required>
+
+        <button onclick="recuperarContrasena()">Enviar enlace</button>
+
+        
+</p>
+
+
+        <p class="link" onclick="mostrarLogin()">Volver al Login</p>
+    </div>
+
+</div>
+
+<script >
+    // Registrar nuevo usuario
+function registrarUsuario() {
+    const usuario = document.getElementById("newUser").value;
+    const password = document.getElementById("newPass").value;
+    const email = document.getElementById("newEmail").value;
+
+    if (usuario.trim() === "" || password.trim() === "" || email.trim() === "") {
+        alert("Todos los campos son obligatorios");
+        return;
+    }
+
+    // Verificar si ya existe
+    if (localStorage.getItem(usuario)) {
+        alert("El usuario ya existe. Elige otro nombre.");
+        return;
+    }
+
+    // Guardar datos en localStorage
+    localStorage.setItem(usuario, JSON.stringify({
+        user: usuario,
+        pass: password,
+        email: email
+    }));
+
+    alert("Usuario registrado exitosamente");
+    window.location.href = "admin.html";
+}
+
+// Ir al login
+function volverLogin() {
+    window.location.href = "admin.html";
+}
+
+// Iniciar sesión con usuarios guardados
+function iniciarSesion() {
+    const user = document.getElementById("usuario").value;
+    const pass = document.getElementById("password").value;
+
+    const usuarioGuardado = localStorage.getItem(user);
+
+    if (!usuarioGuardado) {
+        alert("El usuario no existe");
+        return;
+    }
+
+    const data = JSON.parse(usuarioGuardado);
+
+    if (pass === data.pass) {
+        alert("Inicio de sesión exitoso");
+        window.location.href = "admin.html";
+    } else {
+        alert("Contraseña incorrecta");
+    }
+}
+
+// Recuperar contraseña usando correo
+function recuperarContrasena() {
+    const correo = document.getElementById("correoRecuperar").value;
+
+    if (correo.trim() === "") {
+        alert("Ingresa un correo válido");
+        return;
+    }
+    }
+
+    let encontrado = false;
+    function recuperarContrasena() {
+    const correo = document.getElementById("correoRecuperar").value;
+
+    let encontrado = false;
+
+  
+
+    // Buscar usuario por correo
+    Object.keys(localStorage).forEach(key => {
+        try {
+            let data = JSON.parse(localStorage.getItem(key));
+            if (data.email === correo) {
+                alert("Tu contraseña es: " + data.pass);
+                encontrado = true;
+            }
+        } catch {}
+    });
+
+    if (!encontrado) {
+        alert("No hay usuarios con ese correo");
+    }
+
+    mostrarLogin();
+}
+
+</script>
+</body>
+</html>

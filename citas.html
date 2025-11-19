@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Citas Médicas - Sistema de Clínica</title>
+  
+
+  <style>
+    /* ===============================
+   ESTILOS GENERALES
+=============================== */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f6f8;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+/* ===============================
+   ENCABEZADO
+=============================== */
+header {
+  background-color: #1e88e5;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+/* ===============================
+   MENÚ DE NAVEGACIÓN
+=============================== */
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0 0 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+nav ul li {
+  margin: 10px;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  background-color: #1565c0;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+nav ul li a:hover {
+  background-color: #0d47a1;
+}
+
+/* ===============================
+   SECCIONES
+=============================== */
+main {
+  padding: 30px;
+}
+
+.seccion {
+  display: none;
+  background-color: white;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  margin-bottom: 40px;
+}
+
+.seccion.activa {
+  display: block;
+}
+
+h2 {
+  color: #1e88e5;
+  margin-top: 0;
+}
+
+/* ===============================
+   FORMULARIOS
+=============================== */
+form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+form label {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+form input,
+form textarea,
+form select {
+  padding: 8px;
+  margin-top: 5px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+form button {
+  margin-top: 15px;
+  background-color: #1e88e5;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+form button:hover {
+  background-color: #1565c0;
+}
+
+/* ===============================
+   TABLAS
+=============================== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+table th {
+  background-color: #e3f2fd;
+  color: #0d47a1;
+}
+
+table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* ===============================
+   IMAGEN DE INICIO
+=============================== */
+.img-inicio {
+  display: block;
+  margin: 20px auto;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+/* ===============================
+   PIE DE PÁGINA
+=============================== */
+footer {
+  background-color: #1e88e5;
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+/* ===============================
+   RESPONSIVE (Celulares)
+=============================== */
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  form {
+    width: 100%;
+  }
+
+  table th, table td {
+    font-size: 0.9rem;
+  }
+}
+
+   </style>
+</head>
+</head>
+<body>
+  <header>
+    <h1>🏥 Sistema de Clínica - Juan Silverio - Citas Médicas</h1>
+    <nav>
+      <ul>
+        <li><a href="admin.html">Inicio</a></li>
+        <li><a href="citas.html" class="activo">Citas</a></li>
+        <li><a href="pacientes.html">Pacientes</a></li>
+        <li><a href="historial.html">Historial</a></li>
+        <li><a href="recetas.html">Recetas</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="seccion activa">
+      <h2>🗓️ Registro de Citas Médicas</h2>
+      <p>Registra las citas médicas de los pacientes con el doctor y horario correspondiente.</p>
+
+      <form id="formCita">
+        <label for="nombrePaciente">Nombre del Paciente:</label>
+        <input type="text" id="nombrePaciente" required>
+
+        <label for="doctor">Doctor Asignado:</label>
+        <input type="text" id="doctor" required>
+
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha" required>
+
+        <label for="hora">Hora:</label>
+        <input type="time" id="hora" required>
+
+        <button type="submit">Registrar Cita</button>
+      </form>
+
+      <h3>📋 Lista de Citas</h3>
+      <table id="tablaCitas">
+        <thead>
+          <tr>
+            <th>Paciente</th>
+            <th>Doctor</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Santa Cruz de la sierra — Sistema de Gestión de Citas</p>
+  </footer>
+
+  <script>
+    // --- Recuperar citas del almacenamiento local ---
+    const formCita = document.getElementById('formCita');
+    const tablaCitas = document.querySelector('#tablaCitas tbody');
+
+    let citas = JSON.parse(localStorage.getItem('citas')) || [];
+
+    function mostrarCitas() {
+      tablaCitas.innerHTML = '';
+      citas.forEach((cita, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${cita.paciente}</td>
+          <td>${cita.doctor}</td>
+          <td>${cita.fecha}</td>
+          <td>${cita.hora}</td>
+          <td><button onclick="eliminarCita(${index})" class="btn-eliminar">Eliminar</button></td>
+        `;
+        tablaCitas.appendChild(row);
+      });
+    }
+
+    // --- Guardar nueva cita ---
+    formCita.addEventListener('submit', e => {
+      e.preventDefault();
+      const nuevaCita = {
+        paciente: document.getElementById('nombrePaciente').value,
+        doctor: document.getElementById('doctor').value,
+        fecha: document.getElementById('fecha').value,
+        hora: document.getElementById('hora').value
+      };
+      citas.push(nuevaCita);
+      localStorage.setItem('citas', JSON.stringify(citas));
+      formCita.reset();
+      mostrarCitas();
+    });
+
+    // --- Eliminar cita ---
+    function eliminarCita(index) {
+      citas.splice(index, 1);
+      localStorage.setItem('citas', JSON.stringify(citas));
+      mostrarCitas();
+    }
+
+    // --- Mostrar citas al cargar la página ---
+    mostrarCitas();
+  </script>
+</body>
+</html>
